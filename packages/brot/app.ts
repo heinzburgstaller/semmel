@@ -8,6 +8,19 @@ export const app = new Hono()
 		const result = await db.select().from(schema.todos);
 		return c.json(result);
 	})
+	.get("/todos/:todoId", async (c) => {
+		const result = (
+			await db
+				.select()
+				.from(schema.todos)
+				.where(eq(schema.todos.id, c.req.param("todoId")))
+		)[0];
+
+		if (!result) {
+			return c.notFound();
+		}
+		return c.json(result);
+	})
 	.post("/todos/:text", async (c) => {
 		await db.insert(schema.todos).values({ todo: c.req.param("text") });
 		return c.text("Created!", 201);
