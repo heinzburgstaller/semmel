@@ -36,7 +36,7 @@ function TodosPending() {
 				<p className="mt-8 text-slate-300">Loading todos...</p>
 			</div>
 		</div>
-	)
+	);
 }
 
 function TodosError({ error }: ErrorComponentProps) {
@@ -52,7 +52,7 @@ function TodosError({ error }: ErrorComponentProps) {
 				</div>
 			</div>
 		</div>
-	)
+	);
 }
 
 function RouteComponent() {
@@ -80,5 +80,5 @@ function RouteComponent() {
 				</ul>
 			</div>
 		</div>
-	)
+	);
 }
