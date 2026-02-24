@@ -5,8 +5,8 @@
 		"packages/*"
 	],
 	"scripts": {
-		"check:write": "bunx biome check --write",
-		"dev": "bun --filter brot dev"
+		"check:write": "bunx biome check --write --verbose",
+		"dev": "bun --filter brot dev & bun --filter kornspitz dev"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "2.4.4"

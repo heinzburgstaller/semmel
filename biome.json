@@ -6,7 +6,15 @@
 		"useIgnoreFile": true
 	},
 	"files": {
-		"ignoreUnknown": false
+		"ignoreUnknown": false,
+		"includes": [
+			"**",
+			"!**/dist",
+			"!**/build",
+			"!**/*.gen.ts",
+			"!**/vite.config.ts.timestamp-*.mjs",
+			"!**/src/codegen"
+		]
 	},
 	"formatter": {
 		"enabled": true,
@@ -21,6 +29,11 @@
 	"javascript": {
 		"formatter": {
 			"quoteStyle": "double"
+		}
+	},
+	"css": {
+		"parser": {
+			"tailwindDirectives": true
 		}
 	},
 	"assist": {
