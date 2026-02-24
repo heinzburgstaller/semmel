@@ -1,0 +1,13 @@
+{
+	"name": "my-monorepo",
+	"private": true,
+	"workspaces": [
+		"packages/*"
+	],
+	"scripts": {
+		"check:write": "bunx biome check --write"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "2.4.4"
+	}
+}
