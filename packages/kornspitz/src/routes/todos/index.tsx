@@ -2,6 +2,7 @@ import {
 	createFileRoute,
 	type ErrorComponentProps,
 	Link,
+	useRouter,
 } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
 
@@ -17,6 +18,20 @@ const getTodos = createServerFn({ method: "GET" }).handler(async () => {
 	}
 	return (await response.json()) as Todo[];
 });
+
+export const deleteItem = createServerFn({ method: "POST" })
+	.inputValidator((data: { todoId: string }) => data)
+	.handler(async ({ data }) => {
+		const res = await fetch(`http://localhost:4040/todos/${data.todoId}`, {
+			method: "DELETE",
+		});
+
+		if (!res.ok) {
+			throw new Error("Failed to delete item");
+		}
+
+		return { success: true, id: data.todoId };
+	});
 
 export const Route = createFileRoute("/todos/")({
 	loader: async () => {
@@ -57,6 +72,16 @@ function TodosError({ error }: ErrorComponentProps) {
 
 function RouteComponent() {
 	const { todos } = Route.useLoaderData();
+	const router = useRouter();
+
+	const handleDelete = async (id: string) => {
+		try {
+			await deleteItem({ data: { todoId: id } });
+			router.invalidate();
+		} catch (err) {
+			console.error(err);
+		}
+	};
 
 	return (
 		<div className="min-h-screen bg-linear-to-b from-slate-900 via-slate-800 to-slate-900 px-6 py-12 text-white">
@@ -66,18 +91,34 @@ function RouteComponent() {
 					{todos.map((item) => (
 						<li
 							key={item.id}
-							className="rounded-lg border border-slate-700 bg-slate-800/70 px-4 py-3"
+							className="flex items-center justify-between rounded-lg border border-slate-700 bg-slate-800/70 px-4 py-3"
 						>
 							<Link
+								preload={false}
 								to="/todos/$todoId"
 								params={{ todoId: item.id }}
-								className="block hover:text-amber-300"
+								className="hover:text-amber-300"
 							>
 								{item.todo}
 							</Link>
+							<button
+								type="button"
+								onClick={() => handleDelete(item.id)}
+								className="inline-flex items-center rounded-md bg-red-500 px-3 py-1.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-red-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-400"
+							>
+								Delete
+							</button>
 						</li>
 					))}
 				</ul>
+			</div>
+			<div className="mt-10 flex justify-end border-t border-slate-700/70 pt-6">
+				<Link
+					to="/todos/new"
+					className="inline-flex items-center rounded-md bg-amber-500 px-4 py-2 text-sm font-semibold text-slate-900 shadow-sm transition-colors hover:bg-amber-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-400"
+				>
+					New Todo
+				</Link>
 			</div>
 		</div>
 	);
