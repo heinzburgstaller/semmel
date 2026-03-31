@@ -1,5 +1,8 @@
 import { serve } from "bun";
 import { app } from "./app";
+import { runMigrations } from "./migrate";
+
+await runMigrations();
 
 const port = 4040;
 
