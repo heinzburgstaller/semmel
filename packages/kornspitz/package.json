@@ -8,6 +8,7 @@
 	"scripts": {
 		"dev": "bun --bun vite dev --port 3000",
 		"build": "bun --bun vite build",
+		"start": "bun run .output/server/index.mjs",
 		"preview": "bun --bun vite preview",
 		"test": "bun --bun vitest run"
 	},
@@ -20,6 +21,7 @@
 		"@tanstack/react-start": "^1.132.0",
 		"@tanstack/router-plugin": "^1.132.0",
 		"lucide-react": "^0.545.0",
+		"nitro": "^3.0.260311-beta",
 		"react": "^19.2.0",
 		"react-dom": "^19.2.0",
 		"tailwindcss": "^4.1.18"
