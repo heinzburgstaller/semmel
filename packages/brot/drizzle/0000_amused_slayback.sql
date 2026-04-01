@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS "todo" (
+CREATE TABLE "todo" (
 	"id" text PRIMARY KEY NOT NULL,
 	"todo" text NOT NULL
 );
