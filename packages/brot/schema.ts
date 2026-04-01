@@ -6,6 +6,7 @@ export const todos = pgTable("todo", {
 		.primaryKey()
 		.$defaultFn(() => crypto.randomUUID()),
 	todo: text("todo").notNull(),
+	comment: text("comment"),
 });
 
 export type Todo = InferSelectModel<typeof todos>;
